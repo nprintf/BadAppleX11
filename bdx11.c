@@ -81,7 +81,7 @@ void MainLoop() {
                     PosY += PIXELHEIGHT;
                     XFlush(WindowDisplay);
                 }
-                usleep(35000);
+                usleep(33000);
                 XClearWindow(WindowDisplay, WindowObj);
             }
             Open = 0;
