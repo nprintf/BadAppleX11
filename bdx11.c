@@ -1,9 +1,11 @@
 #define PIXELWIDTH 4
 #define PIXELHEIGHT 8
+#define DELAYINMICROSECONDS 33125
 
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -41,9 +43,7 @@ int ReadFrame(unsigned int Iteration) {
         int i = 0;
         char Buffer[66];
         while (fgets(Buffer, 66, File) != NULL) {
-            for (int j = 0; j < 64; j++) {
-                Frame[i][j] = Buffer[j];
-            }
+            strncpy(Frame[i], Buffer, 64);
             i++;
         }
         fclose(File);
@@ -81,7 +81,7 @@ void MainLoop() {
                     PosY += PIXELHEIGHT;
                     XFlush(WindowDisplay);
                 }
-                usleep(33000);
+                usleep(DELAYINMICROSECONDS);
                 XClearWindow(WindowDisplay, WindowObj);
             }
             Open = 0;
